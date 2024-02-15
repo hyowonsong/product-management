@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Repository
-public class ListProductController {
+public class ListProductRepository {
 
     private List<Product>  products = new CopyOnWriteArrayList<>();
 
