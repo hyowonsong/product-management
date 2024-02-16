@@ -3,23 +3,33 @@ package com.example.productmanagement.infrastructure;
 import com.example.productmanagement.domain.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class DatabaseProductRepository {
-    private JdbcTemplate jdbcTemplate;
+
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
-    public DatabaseProductRepository(JdbcTemplate jdbcTemplate){
-        this.jdbcTemplate = jdbcTemplate;
+    public DatabaseProductRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
+    public Product add(Product product) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        SqlParameterSource namedParameter = new BeanPropertySqlParameterSource(product);
 
-    public Product add(Product product){
-        jdbcTemplate
-                .update("INSERT INTO products (name,price,amount) Values (?,?,?)",
-                        product.getPrice(),product.getPrice(),product.getAmount());
+        namedParameterJdbcTemplate.update("INSERT INTO products (name, price, amount) VALUES (:name, :price, :amount)", namedParameter, keyHolder);
+
+        Long generatedId = keyHolder.getKey().longValue();
+        product.setId(generatedId);
+
         return product;
     }
-
 }
+
