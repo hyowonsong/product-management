@@ -35,10 +35,10 @@ public class SimpleProductService {
 
     public List<ProductDto> findAll() {
         List<Product> products = listProductRepository.findAll();
-        List<ProductDto> productDtos = products.stream()
+        List<ProductDto> productDto = products.stream()
                 .map(product -> modelMapper.map(product, ProductDto.class))
                 .toList();
-        return productDtos;
+        return productDto;
     }
 
     public List<ProductDto> findByNameContaining(String name) {
@@ -49,13 +49,15 @@ public class SimpleProductService {
         return productDtos;
     }
 
+    public void delete(Long id) {
+        listProductRepository.delete(id);
+    }
+
     public ProductDto update(ProductDto productDto) {
         Product product = modelMapper.map(productDto, Product.class);
         Product updatedProduct = listProductRepository.update(product);
         ProductDto updatedProductDto = modelMapper.map(updatedProduct, ProductDto.class);
         return updatedProductDto;
     }
-
-
 
 }

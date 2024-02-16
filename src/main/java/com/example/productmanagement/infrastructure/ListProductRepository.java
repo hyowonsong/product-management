@@ -27,10 +27,6 @@ public class ListProductRepository {
                 .orElseThrow();
     }
 
-    public Boolean sameId(Long id){
-        return this.id.equals(id);
-    }
-
     public List<Product> findAll(){
         return products;
     }
@@ -46,4 +42,11 @@ public class ListProductRepository {
         products.set(indexToModify, product);
         return product;
     }
+
+
+    public void delete(Long id) {
+        Product product = this.findById(id);
+        products.remove(product);
+    }
+
 }
