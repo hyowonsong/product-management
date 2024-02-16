@@ -9,16 +9,20 @@ import java.util.Objects;
 public class Product {
     private Long id;
 
-    @Size(min =1, max = 100)
+    @Size(min = 1, max = 100)
     private String name;
 
-    @Max(1000000)
+    @Max(1_000_000)
     @Min(0)
     private Integer price;
 
-    @Max(9999)
+    @Max(9_999)
     @Min(0)
     private Integer amount;
+
+    public Long getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -32,15 +36,27 @@ public class Product {
         return amount;
     }
 
-    public void setId(Long id){
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 
     public Boolean sameId(Long id) {
         return this.id.equals(id);
     }
 
-    public Boolean containsName(String name){
+    public Boolean containsName(String name) {
         return this.name.contains(name);
     }
 
@@ -51,6 +67,4 @@ public class Product {
         Product product = (Product) o;
         return Objects.equals(id, product.id);
     }
-
-
 }
