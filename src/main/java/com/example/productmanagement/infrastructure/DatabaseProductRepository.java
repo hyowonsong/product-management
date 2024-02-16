@@ -16,7 +16,10 @@ public class DatabaseProductRepository {
 
 
     public Product add(Product product){
-        return null;
+        jdbcTemplate
+                .update("INSERT INTO products (name,price,amount) Values (?,?,?)",
+                        product.getPrice(),product.getPrice(),product.getAmount());
+        return product;
     }
 
 }
