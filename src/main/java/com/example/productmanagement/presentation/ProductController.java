@@ -31,4 +31,14 @@ public class ProductController {
     public List<ProductDto> findAllProduct(){
         return simpleProductService.findAll();
     }
+
+    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    public List<ProductDto> findProducts(
+            @RequestParam(required = false) String name
+    ) {
+        if (null == name)
+            return simpleProductService.findAll();
+
+        return simpleProductService.findByNameContaining(name);
+    }
 }

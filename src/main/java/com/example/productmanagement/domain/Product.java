@@ -10,5 +10,9 @@ public class Product {
         this.id = id;
     }
 
+    public Boolean containsName(String name){
+        return this.name.contains(name);
+    }
+
 
 }
