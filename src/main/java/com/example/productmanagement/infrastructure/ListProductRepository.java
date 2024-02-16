@@ -19,4 +19,19 @@ public class ListProductRepository {
         products.add(product);
         return product;
     }
+
+    public Product findById(Long id){
+        return products.stream()
+                .filter(product -> product.sameId(id))
+                .findFirst()
+                .orElseThrow();
+    }
+
+    public Boolean sameId(Long id){
+        return this.id.equals(id);
+    }
+
+    public List<Product> findAll(){
+        return products;
+    }
 }
