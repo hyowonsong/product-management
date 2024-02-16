@@ -2,6 +2,7 @@ package com.example.productmanagement.presentation;
 
 import com.example.productmanagement.application.SimpleProductService;
 import com.example.productmanagement.domain.Product;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST)
-    public ProductDto createProduct(@RequestBody ProductDto productDto){
+    public ProductDto createProduct(@Valid @RequestBody ProductDto productDto){
         return simpleProductService.add(productDto);
     }
 
